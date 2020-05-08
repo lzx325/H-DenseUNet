@@ -22,12 +22,12 @@ import keras.backend as K
 import os
 import time
 from skimage.transform import resize
-from custom_layers import Scale
+from lib.custom_layers import Scale
 os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 K.set_image_dim_ordering('tf')
 
 path = './result_train_denseU167_fast_new/'
-batch_size = 10
+batch_size = 4
 img_deps = 512
 img_rows = 512
 img_cols = 3
@@ -127,7 +127,7 @@ def weighted_crossentropy(y_true, y_pred):
     return loss
 
 
-def DenseUNet(nb_dense_block=4, growth_rate=48, nb_filter=96, reduction=0.0, dropout_rate=0.0, weight_decay=1e-4, classes=1000, weights_path=None):
+def DenseUNet(nb_dense_block=4, growth_rate=48, nb_filter=96, reduction=0.0, dropout_rate=0.0, weight_decay=1e-4, classes=3, weights_path=None):
     '''Instantiate the DenseNet 161 architecture,
         # Arguments
             nb_dense_block: number of dense blocks to add to end
@@ -217,7 +217,7 @@ def DenseUNet(nb_dense_block=4, growth_rate=48, nb_filter=96, reduction=0.0, dro
     bn_up4 = BatchNormalization(name="bn_up4")(conv_up4)
     ac_up4 = Activation('relu', name='ac_up4')(bn_up4)
 
-    x = Conv2D(3, (1,1), padding="same", kernel_initializer="normal", name="dense167classifer")(ac_up4)
+    x = Conv2D(classes, (1,1), padding="same", kernel_initializer="normal", name="dense167classifer")(ac_up4)
 
     model = Model(img_input, x, name='denseu161')
 

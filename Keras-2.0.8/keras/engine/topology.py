@@ -559,6 +559,7 @@ class Layer(object):
 
                 # Collect input shapes to build layer.
                 input_shapes = []
+
                 for x_elem in _to_list(inputs):
                     if hasattr(x_elem, '_keras_shape'):
                         input_shapes.append(x_elem._keras_shape)

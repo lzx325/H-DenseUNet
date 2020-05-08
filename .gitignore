@@ -4,3 +4,4 @@ hybridnet.pyc
 loss.pyc
 net.pyc
 .idea/workspace.xml
+slurm.sh

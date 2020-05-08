@@ -31,7 +31,6 @@ def make_parallel(model, gpu_count, mini_batch):
         outputs_all.append([])
     # print (outputs_all)
     #Place a copy of the model on each GPU, each getting a slice of the batch
-
     for i in range(gpu_count):
         id = i
         # print ('loading'+str(id))
@@ -52,7 +51,6 @@ def make_parallel(model, gpu_count, mini_batch):
                 # print ('ii',inputs)
                 outputs = model(inputs)
                 # print ('xx',outputs)
-
                 # print ('ssdadsa')
                 if not isinstance(outputs, list):
                     outputs = [outputs]
